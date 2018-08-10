@@ -1,14 +1,23 @@
 #ifndef ESUNNY_QUOTESPI_H_
 #define ESUNNY_QUOTESPI_H_
 
+#include <mutex>
+
 #include "arch.h"
+#include "logger.h"
+
+using std::atomic_bool;
 
 class QuoteSpi : public ITapQuoteAPINotify
 {
 private:
+	Logger *logger = NULL;
+	
+public:
+	atomic_bool ready;
 
 public:
-	QuoteSpi();
+	QuoteSpi(Logger *logger);
 
 	///系统登录过程回调。
 	void TAP_CDECL OnRspLogin(TAPIINT32 errorCode, const TapAPIQuotLoginRspInfo *info);

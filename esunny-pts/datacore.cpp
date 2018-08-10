@@ -15,6 +15,8 @@ using std::min;
 
 Datacore::Datacore(string filename)
 {
+	sessionID = 0;
+
 	string contract;
 	string loglevel;
 
@@ -36,10 +38,12 @@ Datacore::Datacore(string filename)
 	logpath = Filter(pt.get<string>("Logger.LogPath", "esunny-pts.log"));
 
 	quotepath = Filter(pt.get<string>("Quote.QuotePath", "./quote"));
+	quoteLogpath = Filter(pt.get<string>("Quote.QuoteLogPath", "./quotelog"));
 	loglevel = Filter(pt.get<string>("Quote.LogLevel", "D"));
 	quoteLogLevel = SetLogLevel(loglevel.c_str()[0]);
 
-	tradepath = Filter(pt.get<string>("Trade.QuotePath", "./trade"));
+	tradepath = Filter(pt.get<string>("Trade.TradePath", "./trade"));
+	tradeLogpath = Filter(pt.get<string>("Trade.TradeLogPath", "./tradelog"));
 	loglevel = Filter(pt.get<string>("Trade.LogLevel", "D"));
 	tradeLogLevel = SetLogLevel(loglevel.c_str()[0]);
 
@@ -47,9 +51,15 @@ Datacore::Datacore(string filename)
 //	contract = Filter(pt.get<string>("Quote.Contract", ""), false);
 //	ParseContract(contract);
 
-	if (!boost::filesystem::exists(quotepath) || !boost::filesystem::is_directory(quotepath)) {
+	if (!boost::filesystem::exists(quotepath) || !boost::filesystem::is_directory(quotepath)) 
 		boost::filesystem::create_directories(quotepath);
-	}
+	if (!boost::filesystem::exists(quoteLogpath) || !boost::filesystem::is_directory(quoteLogpath)) 
+		boost::filesystem::create_directories(quoteLogpath);
+	if (!boost::filesystem::exists(tradepath) || !boost::filesystem::is_directory(tradepath)) 
+		boost::filesystem::create_directories(tradepath);
+	if (!boost::filesystem::exists(tradeLogpath) || !boost::filesystem::is_directory(tradeLogpath)) 
+		boost::filesystem::create_directories(tradeLogpath);
+
 }
 
 
@@ -102,11 +112,15 @@ void Datacore::GenConfig()
 	pt.put<string>("Logger.LogErr", "true## Error级日志");
 	pt.put<string>("Logger.LogFile", "cielf.log## 日志文件保存路径");
 
-	pt.put<string>("Quote.QuotePath", "./quote## quote相关的保存路径");
+	pt.put<string>("Quote.QuotePath", "./quote## quote数据的保存路径");
+	pt.put<string>("Quote.QuoteLogPath", "./quotelog## quote日志的保存路径");
 	pt.put<string>("Quote.LogLevel", "D ## quote日志的记录等级，分为4种，None/Debug/Warning/Error");
 
-	pt.put<string>("Trade.QuotePath", "./trade## trade相关的保存路径");
+	pt.put<string>("Trade.TradePath", "./trade## trade数据的保存路径");
+	pt.put<string>("Trade.TradeLogPath", "./tradelog## trade日志的保存路径");
 	pt.put<string>("Trade.LogLevel", "D ## trade日志的记录等级，分为4种，None/Debug/Warning/Error");
+
+
 
 	//pt.put<string>("Quote.Contract", "## 合约信息, e.g. rb1810,c1809,i1901,rb1901");
 }

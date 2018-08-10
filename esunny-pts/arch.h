@@ -26,6 +26,8 @@
 #define arch_localtime(t, m)    localtime_r(t, m)
 #define arch_strcpy(dst, src, n)    strncpy(dst, src, n)
 #define arch_sprintf(buf, n, fmt, v)	snprintf(buf, n, fmt, v)
+#include <unistd.h>
+#define arch_sleep(n)	sleep(n)
 
 #elif defined(_WIN64)
 #include "quoteapi/win64/TapAPICommDef.h"
@@ -44,6 +46,8 @@
 #define arch_localtime(t, m)    localtime_s(m, t)
 #define arch_strcpy(dst, src, n)    strcpy_s(dst, n, src)
 #define arch_sprintf(buf, n, fmt, v)	sprintf_s(buf, n, fmt, v)
+#include <Windows.h>
+#define arch_sleep(n)	Sleep(1000 * n)
 
 #elif defined(_WIN32)
 #include "quoteapi/win32/TapAPICommDef.h"
@@ -62,6 +66,9 @@
 #define arch_localtime(t, m)    localtime_s(m, t)
 #define arch_strcpy(dst, src, n)    strcpy_s(dst, n, src)
 #define arch_sprintf(buf, n, fmt, v)	sprintf_s(buf, n, fmt, v)
+#include <Windows.h>
+#define arch_sleep(n)	Sleep(1000 * n)
+
 #endif
 
 

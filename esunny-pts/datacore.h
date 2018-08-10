@@ -14,7 +14,7 @@
 using std::mutex;
 using std::string;
 using std::atomic_bool;
-using std::atomic_ullong;
+using std::atomic_uint32_t;
 using boost::property_tree::ptree;
 using boost::property_tree::ini_parser::read_ini;
 using boost::property_tree::ini_parser::write_ini;
@@ -25,6 +25,9 @@ private:
 	ptree pt;
 
 public:
+	atomic_uint32_t sessionID;
+
+public:
 	atomic_bool debug;
 	atomic_bool loginf;
 	atomic_bool logmsg;
@@ -33,9 +36,11 @@ public:
 	string logpath;
 
 	string quotepath;
+	string quoteLogpath;
 	char quoteLogLevel;
 
 	string tradepath;
+	string tradeLogpath;
 	char tradeLogLevel;
 
 public:
