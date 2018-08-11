@@ -4,6 +4,7 @@
 #include "logger.h"
 #include "datacore.h"
 #include "quotespi.h"
+#include "tradespi.h"
 
 using std::stringstream;
 using ITapTrade::ITapTradeAPI;
@@ -44,7 +45,8 @@ int main()
 	LOGINF(logger, &log);
 
 	/* Create and Init QuoteAPI & QuoteSPI */
-	TAPIINT32 iResult = TAPIERROR_SUCCEED;
+	TAPIINT32 iResult = 0;
+	TAPIUINT32 sessionID = 0;
 	// Create QuoteAPI Instance
 	TapAPIApplicationInfo appInfo = { 0 };
 	arch_strcpy(appInfo.AuthCode, DEFAULT_AUTHCODE, sizeof(TAPIAUTHCODE));
@@ -79,7 +81,7 @@ int main()
 		LOGERR(logger, &log);
 		return iResult;
 	}
-	// DO Login
+	// Do Login
 	TapAPIQuoteLoginAuth loginAuth = { 0 };
 	arch_strcpy(loginAuth.UserNo, DEFAULT_QUOTE_USERNAME, sizeof(TAPISTR_20));
 	arch_strcpy(loginAuth.Password, DEFAULT_QUOTE_PASSWORD, sizeof(TAPISTR_20));
@@ -91,22 +93,30 @@ int main()
 		LOGERR(logger, &log);
 		return iResult;
 	}
-
-
+	// Waiting for QuoteAPI Status to be Ready
 	while (!quoteSpi->ready) 
 		arch_sleep(1);
-	
+	// Query All of Commodities
 	arch_sleep(2);
-	TAPIUINT32 sessionID = 0;
-	quoteApi->QryCommodity(&sessionID);
-
+	iResult = quoteApi->QryCommodity(&sessionID);
+	if (iResult) {
+		log << "查询所有品种的请求执行失败，ErrorCode=" << iResult;
+		LOGERR(logger, &log);
+		return iResult;
+	}
+	// Query Information of A Detail Contract
 	arch_sleep(2);
 	TapAPICommodity commodity = { 0 };
 	arch_strcpy(commodity.CommodityNo, "HSI", sizeof(TAPISTR_10));
 	commodity.CommodityType = 'F';
 	arch_strcpy(commodity.ExchangeNo, "HKEX", sizeof(TAPISTR_10));
-	quoteApi->QryContract(&sessionID, &commodity);
-
+	iResult = quoteApi->QryContract(&sessionID, &commodity);
+	if (iResult) {
+		log << "查询指定合约品种详细信息的请求执行失败，ErrorCode=" << iResult;
+		LOGERR(logger, &log);
+		return iResult;
+	}
+	// Do Subscribe
 	arch_sleep(2);
 	TapAPIContract contract = { 0 };
 	memset(&contract, 0, sizeof(TapAPIContract));
@@ -117,12 +127,66 @@ int main()
 	contract.CallOrPutFlag1 = TAPI_CALLPUT_FLAG_NONE;
 	contract.CallOrPutFlag2 = TAPI_CALLPUT_FLAG_NONE;
 	iResult = quoteApi->SubscribeQuote(&sessionID, &contract);
-		
-
-
+	if (iResult) {
+		log << "订阅指定合约行情信息的请求执行失败，ErrorCode=" << iResult;
+		LOGERR(logger, &log);
+		return iResult;
+	}
 	
 	/* Create and Init TradeAPI & TradeSPI */
-	ITapTradeAPI *tradeApi = NULL;
+	// Create TradeAPI Instance
+	ITapTrade::TapAPIApplicationInfo iappInfo = { 0 };
+	arch_strcpy(iappInfo.AuthCode, DEFAULT_AUTHCODE, sizeof(ITapTrade::TAPIAUTHCODE));
+	arch_strcpy(iappInfo.KeyOperationLogPath, datacore->tradeLogpath.c_str(), sizeof(TAPISTR_300));
+	ITapTradeAPI *tradeApi = CreateITapTradeAPI(&iappInfo, iResult);
+	if (!tradeApi) {
+		log << "创建 trade API 实例失败，ErrorCode=" << iResult;
+		LOGERR(logger, &log);
+		return iResult;
+	}
+	// Create TradeSPI Instance
+	TradeSpi *tradeSpi = new TradeSpi(logger);
+	tradeApi->SetAPINotify(tradeSpi);
+	// Set Trade Data Path
+	iResult = SetITapTradeAPIDataPath(datacore->tradepath.c_str());
+	if (iResult) {
+		log << "设置 trade 相关保存路径失败，ErrorCode=" << iResult;
+		LOGERR(logger, &log);
+		return iResult;
+	}
+	// Set Trade Log Level
+	iResult = SetITapTradeAPILogLevel(datacore->tradeLogLevel);
+	if (iResult) {
+		log << "设置 trade 日志记录等级失败，ErrorCode=" << iResult;
+		LOGERR(logger, &log);
+		return iResult;
+	}
+	// Set Host FrontAddr
+	iResult = tradeApi->SetHostAddress(DEFAULT_TRADE_IP, DEFAULT_TRADE_PORT);
+	if (iResult) {
+		log << "设置 trade 前置服务器地址失败，ErrorCode=" << iResult;
+		LOGERR(logger, &log);
+		return iResult;
+	}
+	// Do Login
+	ITapTrade::TapAPITradeLoginAuth iloginAuth = { 0 };
+
+
+	arch_strcpy(iloginAuth.UserNo, DEFAULT_TRADE_USERNAME, sizeof(TAPISTR_20));
+	arch_strcpy(iloginAuth.Password, DEFAULT_TRADE_PASSWORD, sizeof(TAPISTR_20));
+	iloginAuth.ISModifyPassword = APIYNFLAG_NO;
+	iResult = tradeApi->Login(&iloginAuth);
+	if (iResult) {
+		log << "登录 trade 认证失败，ErrorCode=" << iResult;
+		LOGERR(logger, &log);
+		return iResult;
+	}
+	// Waiting for TradeAPI Status to be Ready
+	while (!tradeSpi->ready)
+		arch_sleep(1);
+
+
+
 
 	while (true) {
 		;
