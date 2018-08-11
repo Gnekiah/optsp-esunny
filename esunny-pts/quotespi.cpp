@@ -24,23 +24,21 @@ void TAP_CDECL QuoteSpi::OnRspLogin(TAPIINT32 errorCode, const TapAPIQuotLoginRs
 {
 	stringstream log;
 	if (!errorCode) {
-		log << "登录成功";
+		log << "登录成功"
+			<< ", 用户名=" << info->UserNo
+			<< ", 上次登录IP=" << info->LastLoginIP
+			<< ", 上次登录时间=" << info->LastLoginTime
+			<< ", 上次退出时间=" << info->LastLogoutTime
+			<< ", 用户类型=" << info->UserType;
+		//	<< ", InitTime=" << info->InitTime
+		//	<< ", LastLoginProt=" << info->LastLoginProt
+		//	<< ", LastSettleTime=" << info->LastSettleTime
+		//	<< ", QuoteTempPassword=" << info->QuoteTempPassword
+		//	<< ", ReservedInfo=" << info->ReservedInfo
+		//	<< ", StartTime=" << info->StartTime
+		//	<< ", TradeDate=" << info->TradeDate
+		//	<< ", UserName=" << info->UserName
 		LOGINF(logger, &log);
-		log << "TapAPIQuotLoginRspInfo"
-			<< ", InitTime=" << info->InitTime
-			<< ", LastLoginIP=" << info->LastLoginIP
-			<< ", LastLoginProt=" << info->LastLoginProt
-			<< ", LastLoginTime=" << info->LastLoginTime
-			<< ", LastLogoutTime=" << info->LastLogoutTime
-			<< ", LastSettleTime=" << info->LastSettleTime
-			<< ", QuoteTempPassword=" << info->QuoteTempPassword
-			<< ", ReservedInfo=" << info->ReservedInfo
-			<< ", StartTime=" << info->StartTime
-			<< ", TradeDate=" << info->TradeDate
-			<< ", UserName=" << info->UserName
-			<< ", UserNo=" << info->UserNo
-			<< ", UserType" << info->UserType;
-		LOGMSG(logger, &log);
 	}
 	else {
 		log << "登陆失败，ErrorCode=" << errorCode;
@@ -94,26 +92,24 @@ void TAP_CDECL QuoteSpi::OnRspQryCommodity(TAPIUINT32 sessionID, TAPIINT32 error
 {
 	stringstream log;
 	if (!errorCode) {
-		log << "返回所有品种信息，SessionID=" << sessionID << ", isLast=" << isLast;
-		LOGMSG(logger, &log);
-		log << "TapAPIQuoteCommodityInfo"
-			<< ", CmbDirect=" << info->CmbDirect
-			<< ", Commodity.CommodityNo=" << info->Commodity.CommodityNo
-			<< ", Commodity.CommodityType=" << info->Commodity.CommodityType
-			<< ", Commodity.ExchangeNo=" << info->Commodity.ExchangeNo
-			<< ", CommodityContractLen=" << info->CommodityContractLen
-			<< ", CommodityDenominator=" << info->CommodityDenominator
-			<< ", CommodityEngName=" << info->CommodityEngName
-			<< ", CommodityName=" << info->CommodityName
-			<< ", CommodityTickSize=" << info->CommodityTickSize
-			<< ", ContractSize=" << info->ContractSize
-			<< ", IsDST=" << info->IsDST
-			<< ", RelateCommodity1.CommodityNo=" << info->RelateCommodity1.CommodityNo
-			<< ", RelateCommodity1.CommodityType=" << info->RelateCommodity1.CommodityType
-			<< ", RelateCommodity1.ExchangeNo=" << info->RelateCommodity1.ExchangeNo
-			<< ", RelateCommodity2.CommodityNo=" << info->RelateCommodity2.CommodityNo
-			<< ", RelateCommodity2.CommodityType=" << info->RelateCommodity2.CommodityType
-			<< ", RelateCommodity2.ExchangeNo=" << info->RelateCommodity2.ExchangeNo; 
+		log << "品种信息"
+			<< ", 交易所编码=" << info->Commodity.CommodityNo
+			<< ", 品种类型=" << info->Commodity.CommodityType
+			<< ", 交易所编码=" << info->Commodity.ExchangeNo
+			<< ", 合约年限=" << info->CommodityContractLen
+			<< ", 报价分母=" << info->CommodityDenominator
+			<< ", 最小变动价位=" << info->CommodityTickSize
+			<< ", 每手乘数=" << info->ContractSize;
+		//	<< ", CommodityEngName=" << info->CommodityEngName
+		//	<< ", CommodityName=" << info->CommodityName
+		//	<< ", CmbDirect=" << info->CmbDirect
+		//	<< ", IsDST=" << info->IsDST
+		//	<< ", RelateCommodity1.CommodityNo=" << info->RelateCommodity1.CommodityNo
+		//	<< ", RelateCommodity1.CommodityType=" << info->RelateCommodity1.CommodityType
+		//	<< ", RelateCommodity1.ExchangeNo=" << info->RelateCommodity1.ExchangeNo
+		//	<< ", RelateCommodity2.CommodityNo=" << info->RelateCommodity2.CommodityNo
+		//	<< ", RelateCommodity2.CommodityType=" << info->RelateCommodity2.CommodityType
+		//	<< ", RelateCommodity2.ExchangeNo=" << info->RelateCommodity2.ExchangeNo
 		LOGMSG(logger, &log);
 	}
 	else {
@@ -136,24 +132,22 @@ void TAP_CDECL QuoteSpi::OnRspQryContract(TAPIUINT32 sessionID, TAPIINT32 errorC
 {
 	stringstream log;
 	if (!errorCode) {
-		log << "返回合约信息，SessionID=" << sessionID << ", isLast=" << isLast;
-		LOGMSG(logger, &log);
-		log << "TapAPIQuoteContractInfo"
-			<< ", Contract.CallOrPutFlag1=" << info->Contract.CallOrPutFlag1
-			<< ", Contract.CallOrPutFlag2=" << info->Contract.CallOrPutFlag2
-			<< ", Contract.Commodity.CommodityNo=" << info->Contract.Commodity.CommodityNo
-			<< ", Contract.Commodity.CommodityType=" << info->Contract.Commodity.CommodityType
-			<< ", Contract.Commodity.ExchangeNo=" << info->Contract.Commodity.ExchangeNo
-			<< ", Contract.ContractNo1=" << info->Contract.ContractNo1
-			<< ", Contract.ContractNo2=" << info->Contract.ContractNo2
-			<< ", Contract.StrikePrice1=" << info->Contract.StrikePrice1
-			<< ", Contract.StrikePrice2=" << info->Contract.StrikePrice2
-			<< ", ContractExpDate=" << info->ContractExpDate
-			<< ", ContractName=" << info->ContractName
-			<< ", ContractType=" << info->ContractType
-			<< ", FirstNoticeDate=" << info->FirstNoticeDate
-			<< ", LastTradeDate=" << info->LastTradeDate
-			<< ", QuoteUnderlyingContract=" << info->QuoteUnderlyingContract;
+		log << "合约信息"
+			<< ", 品种编号=" << info->Contract.Commodity.CommodityNo
+			<< ", 品种类型=" << info->Contract.Commodity.CommodityType
+			<< ", 交易所编码=" << info->Contract.Commodity.ExchangeNo
+			<< ", 合约代码1=" << info->Contract.ContractNo1
+			<< ", 合约代码2=" << info->Contract.ContractNo2;
+		//	<< ", Contract.CallOrPutFlag1=" << info->Contract.CallOrPutFlag1
+		//	<< ", Contract.CallOrPutFlag2=" << info->Contract.CallOrPutFlag2
+		//	<< ", Contract.StrikePrice1=" << info->Contract.StrikePrice1
+		//	<< ", Contract.StrikePrice2=" << info->Contract.StrikePrice2
+		//	<< ", ContractExpDate=" << info->ContractExpDate
+		//	<< ", ContractName=" << info->ContractName
+		//	<< ", ContractType=" << info->ContractType
+		//	<< ", FirstNoticeDate=" << info->FirstNoticeDate
+		//	<< ", LastTradeDate=" << info->LastTradeDate
+		//	<< ", QuoteUnderlyingContract=" << info->QuoteUnderlyingContract
 		LOGMSG(logger, &log);
 	}
 	else {
@@ -177,73 +171,79 @@ void TAP_CDECL QuoteSpi::OnRspSubscribeQuote(TAPIUINT32 sessionID, TAPIINT32 err
 {
 	stringstream log;
 	if (!errorCode) {
-		log << "返回订阅行情的全文，SessionID=" << sessionID << ", isLast=" << isLast;
+		log << "深度行情"
+			<< ", 品种编号=" << info->Contract.Commodity.CommodityNo
+			<< ", 合约代码=" << info->Contract.ContractNo1
+			<< ", 时间戳=" << info->DateTimeStamp
+			<< ", 最新价=" << info->QLastPrice
+			<< ", 最新成交量=" << info->QLastQty << std::endl
+			<< ", 开盘价=" << info->QOpeningPrice
+			<< ", 最高价=" << info->QHighPrice
+			<< ", 最低价=" << info->QLowPrice
+			<< ", 收盘价=" << info->QClosingPrice
+			<< ", 结算价=" << info->QSettlePrice
+			<< ", 涨跌值=" << info->QChangeValue
+			<< ", 涨幅=" << info->QChangeRate
+			<< ", 涨速=" << info->QChangeSpeed
+			<< ", 均价=" << info->QAveragePrice
+			<< ", 五日均量=" << info->Q5DAvgQty
+			<< ", 跌停价=" << info->QLimitDownPrice
+			<< ", 涨停价=" << info->QLimitUpPrice << std::endl
+			<< ", 振幅=" << info->QSwing
+			<< ", 委卖总量=" << info->QTotalAskQty
+			<< ", 委买总量=" << info->QTotalBidQty
+			<< ", 当日总成交量=" << info->QTotalQty
+			<< ", 当日成交金额=" << info->QTotalTurnover
+			<< ", 今虚实度=" << info->QCurrDelta
+			<< ", 隐含卖价=" << info->QImpliedAskPrice
+			<< ", 隐含卖量=" << info->QImpliedAskQty
+			<< ", 隐含买价=" << info->QImpliedBidPrice
+			<< ", 隐含买量=" << info->QImpliedBidQty << std::endl
+			<< ", 昨收盘价=" << info->QPreClosingPrice
+			<< ", 昨结算价=" << info->QPreSettlePrice
+			<< ", 昨持仓量=" << info->QPrePositionQty
+			<< ", 昨虚实度=" << info->QPreDelta
+			<< ", 历史最高价=" << info->QHisHighPrice
+			<< ", 历史最低价=" << info->QHisLowPrice
+			<< ", 内盘量=" << info->QInsideQty
+			<< ", 外盘量=" << info->QOutsideQty
+			<< ", 市盈率=" << info->QPERatio
+			<< ", 持仓量=" << info->QPositionQty
+			<< ", 持仓走势=" << info->QPositionTrend
+			<< ", 总市值=" << info->QTotalValue
+			<< ", 流通市值=" << info->QNegotiableValue
+			<< ", 换手率=" << info->QTurnoverRate;
+		for (int i = 0; i < 20; i++) {
+			if (i % 5 == 0)
+				log << std::endl;
+			log << ", 买价" << i + 1 << "=" << info->QBidPrice[i];
+			log << ", 买量" << i + 1 << "=" << info->QBidQty[i];
+		}
+		for (int i = 0; i < 20; i++) {
+			if (i % 5 == 0)
+				log << std::endl;
+			log << ", 卖价" << i + 1 << "=" << info->QAskPrice[i];
+			log << ", 卖量" << i + 1 << "=" << info->QAskQty[i];
+		}			
+		//	<< ", 合约代码2=" << info->Contract.ContractNo2
+		//	<< ", 执行价1=" << info->Contract.StrikePrice1
+		//	<< ", 执行价2=" << info->Contract.StrikePrice2
+		//	<< ", 币种编号=" << info->CurrencyNo
+		//	<< ", UnderlyContract.CallOrPutFlag1=" << info->UnderlyContract.CallOrPutFlag1
+		//	<< ", UnderlyContract.CallOrPutFlag2=" << info->UnderlyContract.CallOrPutFlag2
+		//	<< ", UnderlyContract.Commodity.CommodityNo=" << info->UnderlyContract.Commodity.CommodityNo
+		//	<< ", UnderlyContract.Commodity.CommodityType=" << info->UnderlyContract.Commodity.CommodityType
+		//	<< ", UnderlyContract.Commodity.ExchangeNo=" << info->UnderlyContract.Commodity.ExchangeNo
+		//	<< ", UnderlyContract.ContractNo1=" << info->UnderlyContract.ContractNo1
+		//	<< ", UnderlyContract.ContractNo2=" << info->UnderlyContract.ContractNo2
+		//	<< ", UnderlyContract.StrikePrice1=" << info->UnderlyContract.StrikePrice1
+		//	<< ", UnderlyContract.StrikePrice2=" << info->UnderlyContract.StrikePrice2
+		//	<< ", 看涨看跌标示1=" << info->Contract.CallOrPutFlag1
+		//	<< ", 看涨看跌标示2=" << info->Contract.CallOrPutFlag2
+		//	<< ", 品种类型=" << info->Contract.Commodity.CommodityType
+		//	<< ", 交易所编码=" << info->Contract.Commodity.ExchangeNo
+		//	<< ", 交易状态=" << info->TradingState 
 		LOGMSG(logger, &log);
-		log << "TapAPIQuoteWhole"
-			<< ", Contract.CallOrPutFlag1=" << info->Contract.CallOrPutFlag1
-			<< ", Contract.CallOrPutFlag2=" << info->Contract.CallOrPutFlag2
-			<< ", Contract.Commodity.CommodityNo=" << info->Contract.Commodity.CommodityNo
-			<< ", Contract.Commodity.CommodityType=" << info->Contract.Commodity.CommodityType
-			<< ", Contract.Commodity.ExchangeNo=" << info->Contract.Commodity.ExchangeNo
-			<< ", Contract.ContractNo1=" << info->Contract.ContractNo1
-			<< ", Contract.ContractNo2=" << info->Contract.ContractNo2
-			<< ", Contract.StrikePrice1=" << info->Contract.StrikePrice1
-			<< ", Contract.StrikePrice2=" << info->Contract.StrikePrice2
-			<< ", CurrencyNo=" << info->CurrencyNo
-			<< ", DateTimeStamp=" << info->DateTimeStamp
-			<< ", Q5DAvgQty=" << info->Q5DAvgQty
-			<< ", QAskPrice=" << info->QAskPrice
-			<< ", QAskQty=" << info->QAskQty
-			<< ", QAveragePrice=" << info->QAveragePrice
-			<< ", QBidPrice=" << info->QBidPrice
-			<< ", QBidQty=" << info->QBidQty
-			<< ", QChangeRate=" << info->QChangeRate
-			<< ", QChangeSpeed=" << info->QChangeSpeed
-			<< ", QChangeValue=" << info->QChangeValue
-			<< ", QClosingPrice=" << info->QClosingPrice
-			<< ", QCurrDelta=" << info->QCurrDelta
-			<< ", QHighPrice=" << info->QHighPrice
-			<< ", QHisHighPrice=" << info->QHisHighPrice
-			<< ", QHisLowPrice=" << info->QHisLowPrice
-			<< ", QImpliedAskPrice=" << info->QImpliedAskPrice
-			<< ", QImpliedAskQty=" << info->QImpliedAskQty
-			<< ", QImpliedBidPrice=" << info->QImpliedBidPrice
-			<< ", QImpliedBidQty=" << info->QImpliedBidQty
-			<< ", QInsideQty=" << info->QInsideQty
-			<< ", QLastPrice=" << info->QLastPrice
-			<< ", QLastQty=" << info->QLastQty
-			<< ", QLimitDownPrice=" << info->QLimitDownPrice
-			<< ", QLimitUpPrice=" << info->QLimitUpPrice
-			<< ", QLowPrice=" << info->QLowPrice
-			<< ", QNegotiableValue=" << info->QNegotiableValue
-			<< ", QOpeningPrice=" << info->QOpeningPrice
-			<< ", QOutsideQty=" << info->QOutsideQty
-			<< ", QPERatio=" << info->QPERatio
-			<< ", QPositionQty=" << info->QPositionQty
-			<< ", QPositionTrend=" << info->QPositionTrend
-			<< ", QPreClosingPrice=" << info->QPreClosingPrice
-			<< ", QPreDelta=" << info->QPreDelta
-			<< ", QPrePositionQty=" << info->QPrePositionQty
-			<< ", QPreSettlePrice=" << info->QPreSettlePrice
-			<< ", QSettlePrice=" << info->QSettlePrice
-			<< ", QSwing=" << info->QSwing
-			<< ", QTotalAskQty=" << info->QTotalAskQty
-			<< ", QTotalBidQty=" << info->QTotalBidQty
-			<< ", QTotalQty=" << info->QTotalQty
-			<< ", QTotalTurnover=" << info->QTotalTurnover
-			<< ", QTotalValue=" << info->QTotalValue
-			<< ", QTurnoverRate=" << info->QTurnoverRate
-			<< ", TradingState=" << info->TradingState
-			<< ", UnderlyContract.CallOrPutFlag1=" << info->UnderlyContract.CallOrPutFlag1
-			<< ", UnderlyContract.CallOrPutFlag2=" << info->UnderlyContract.CallOrPutFlag2
-			<< ", UnderlyContract.Commodity.CommodityNo=" << info->UnderlyContract.Commodity.CommodityNo
-			<< ", UnderlyContract.Commodity.CommodityType=" << info->UnderlyContract.Commodity.CommodityType
-			<< ", UnderlyContract.Commodity.ExchangeNo=" << info->UnderlyContract.Commodity.ExchangeNo
-			<< ", UnderlyContract.ContractNo1=" << info->UnderlyContract.ContractNo1
-			<< ", UnderlyContract.ContractNo2=" << info->UnderlyContract.ContractNo2
-			<< ", UnderlyContract.StrikePrice1=" << info->UnderlyContract.StrikePrice1
-			<< ", UnderlyContract.StrikePrice2=" << info->UnderlyContract.StrikePrice2;
-			LOGMSG(logger, &log);
 	}
 	else {
 		log << "返回订阅行情的全文失败，ErrorCode=" << errorCode;
@@ -265,18 +265,16 @@ void TAP_CDECL QuoteSpi::OnRspUnSubscribeQuote(TAPIUINT32 sessionID, TAPIINT32 e
 {
 	stringstream log;
 	if (!errorCode) {
-		log << "退订指定合约行情的结果，SessionID=" << sessionID << ", isLast=" << isLast;
-		LOGMSG(logger, &log);
-		log << "TapAPIContract"
-			<< ", CallOrPutFlag1=" << info->CallOrPutFlag1
-			<< ", CallOrPutFlag2=" << info->CallOrPutFlag2
-			<< ", Commodity.CommodityNo=" << info->Commodity.CommodityNo
-			<< ", Commodity.CommodityType=" << info->Commodity.CommodityType
-			<< ", Commodity.ExchangeNo=" << info->Commodity.ExchangeNo
-			<< ", ContractNo1=" << info->ContractNo1
-			<< ", ContractNo2=" << info->ContractNo2
-			<< ", StrikePrice1=" << info->StrikePrice1
-			<< ", StrikePrice2=" << info->StrikePrice2;
+		log << "退订合约"
+			<< ", 合约代码1=" << info->ContractNo1
+			<< ", 合约代码2=" << info->ContractNo2
+			<< ", 品种编号=" << info->Commodity.CommodityNo
+			<< ", 品种类型=" << info->Commodity.CommodityType
+			<< ", 交易所编号=" << info->Commodity.ExchangeNo;
+		//	<< ", CallOrPutFlag1=" << info->CallOrPutFlag1
+		//	<< ", CallOrPutFlag2=" << info->CallOrPutFlag2
+		//	<< ", StrikePrice1=" << info->StrikePrice1
+		//	<< ", StrikePrice2=" << info->StrikePrice2
 		LOGMSG(logger, &log);
 	}
 	else {
@@ -296,71 +294,77 @@ void TAP_CDECL QuoteSpi::OnRspUnSubscribeQuote(TAPIUINT32 sessionID, TAPIINT32 e
 void TAP_CDECL QuoteSpi::OnRtnQuote(const TapAPIQuoteWhole *info)
 {
 	stringstream log;
-	log << "获得订阅行情的变化内容";
-	LOGMSG(logger, &log);
-	log << "TapAPIQuoteWhole"
-		<< ", Contract.CallOrPutFlag1=" << info->Contract.CallOrPutFlag1
-		<< ", Contract.CallOrPutFlag2=" << info->Contract.CallOrPutFlag2
-		<< ", Contract.Commodity.CommodityNo=" << info->Contract.Commodity.CommodityNo
-		<< ", Contract.Commodity.CommodityType=" << info->Contract.Commodity.CommodityType
-		<< ", Contract.Commodity.ExchangeNo=" << info->Contract.Commodity.ExchangeNo
-		<< ", Contract.ContractNo1=" << info->Contract.ContractNo1
-		<< ", Contract.ContractNo2=" << info->Contract.ContractNo2
-		<< ", Contract.StrikePrice1=" << info->Contract.StrikePrice1
-		<< ", Contract.StrikePrice2=" << info->Contract.StrikePrice2
-		<< ", CurrencyNo=" << info->CurrencyNo
-		<< ", DateTimeStamp=" << info->DateTimeStamp
-		<< ", Q5DAvgQty=" << info->Q5DAvgQty
-		<< ", QAskPrice=" << info->QAskPrice
-		<< ", QAskQty=" << info->QAskQty
-		<< ", QAveragePrice=" << info->QAveragePrice
-		<< ", QBidPrice=" << info->QBidPrice
-		<< ", QBidQty=" << info->QBidQty
-		<< ", QChangeRate=" << info->QChangeRate
-		<< ", QChangeSpeed=" << info->QChangeSpeed
-		<< ", QChangeValue=" << info->QChangeValue
-		<< ", QClosingPrice=" << info->QClosingPrice
-		<< ", QCurrDelta=" << info->QCurrDelta
-		<< ", QHighPrice=" << info->QHighPrice
-		<< ", QHisHighPrice=" << info->QHisHighPrice
-		<< ", QHisLowPrice=" << info->QHisLowPrice
-		<< ", QImpliedAskPrice=" << info->QImpliedAskPrice
-		<< ", QImpliedAskQty=" << info->QImpliedAskQty
-		<< ", QImpliedBidPrice=" << info->QImpliedBidPrice
-		<< ", QImpliedBidQty=" << info->QImpliedBidQty
-		<< ", QInsideQty=" << info->QInsideQty
-		<< ", QLastPrice=" << info->QLastPrice
-		<< ", QLastQty=" << info->QLastQty
-		<< ", QLimitDownPrice=" << info->QLimitDownPrice
-		<< ", QLimitUpPrice=" << info->QLimitUpPrice
-		<< ", QLowPrice=" << info->QLowPrice
-		<< ", QNegotiableValue=" << info->QNegotiableValue
-		<< ", QOpeningPrice=" << info->QOpeningPrice
-		<< ", QOutsideQty=" << info->QOutsideQty
-		<< ", QPERatio=" << info->QPERatio
-		<< ", QPositionQty=" << info->QPositionQty
-		<< ", QPositionTrend=" << info->QPositionTrend
-		<< ", QPreClosingPrice=" << info->QPreClosingPrice
-		<< ", QPreDelta=" << info->QPreDelta
-		<< ", QPrePositionQty=" << info->QPrePositionQty
-		<< ", QPreSettlePrice=" << info->QPreSettlePrice
-		<< ", QSettlePrice=" << info->QSettlePrice
-		<< ", QSwing=" << info->QSwing
-		<< ", QTotalAskQty=" << info->QTotalAskQty
-		<< ", QTotalBidQty=" << info->QTotalBidQty
-		<< ", QTotalQty=" << info->QTotalQty
-		<< ", QTotalTurnover=" << info->QTotalTurnover
-		<< ", QTotalValue=" << info->QTotalValue
-		<< ", QTurnoverRate=" << info->QTurnoverRate
-		<< ", TradingState=" << info->TradingState
-		<< ", UnderlyContract.CallOrPutFlag1=" << info->UnderlyContract.CallOrPutFlag1
-		<< ", UnderlyContract.CallOrPutFlag2=" << info->UnderlyContract.CallOrPutFlag2
-		<< ", UnderlyContract.Commodity.CommodityNo=" << info->UnderlyContract.Commodity.CommodityNo
-		<< ", UnderlyContract.Commodity.CommodityType=" << info->UnderlyContract.Commodity.CommodityType
-		<< ", UnderlyContract.Commodity.ExchangeNo=" << info->UnderlyContract.Commodity.ExchangeNo
-		<< ", UnderlyContract.ContractNo1=" << info->UnderlyContract.ContractNo1
-		<< ", UnderlyContract.ContractNo2=" << info->UnderlyContract.ContractNo2
-		<< ", UnderlyContract.StrikePrice1=" << info->UnderlyContract.StrikePrice1
-		<< ", UnderlyContract.StrikePrice2=" << info->UnderlyContract.StrikePrice2;
+	log << "深度行情"
+		<< ", 品种编号=" << info->Contract.Commodity.CommodityNo
+		<< ", 合约代码=" << info->Contract.ContractNo1
+		<< ", 时间戳=" << info->DateTimeStamp
+		<< ", 最新价=" << info->QLastPrice
+		<< ", 最新成交量=" << info->QLastQty << std::endl
+		<< ", 开盘价=" << info->QOpeningPrice
+		<< ", 最高价=" << info->QHighPrice
+		<< ", 最低价=" << info->QLowPrice
+		<< ", 收盘价=" << info->QClosingPrice
+		<< ", 结算价=" << info->QSettlePrice
+		<< ", 涨跌值=" << info->QChangeValue
+		<< ", 涨幅=" << info->QChangeRate
+		<< ", 涨速=" << info->QChangeSpeed
+		<< ", 均价=" << info->QAveragePrice
+		<< ", 五日均量=" << info->Q5DAvgQty
+		<< ", 跌停价=" << info->QLimitDownPrice
+		<< ", 涨停价=" << info->QLimitUpPrice << std::endl
+		<< ", 振幅=" << info->QSwing
+		<< ", 委卖总量=" << info->QTotalAskQty
+		<< ", 委买总量=" << info->QTotalBidQty
+		<< ", 当日总成交量=" << info->QTotalQty
+		<< ", 当日成交金额=" << info->QTotalTurnover
+		<< ", 今虚实度=" << info->QCurrDelta
+		<< ", 隐含卖价=" << info->QImpliedAskPrice
+		<< ", 隐含卖量=" << info->QImpliedAskQty
+		<< ", 隐含买价=" << info->QImpliedBidPrice
+		<< ", 隐含买量=" << info->QImpliedBidQty << std::endl
+		<< ", 昨收盘价=" << info->QPreClosingPrice
+		<< ", 昨结算价=" << info->QPreSettlePrice
+		<< ", 昨持仓量=" << info->QPrePositionQty
+		<< ", 昨虚实度=" << info->QPreDelta
+		<< ", 历史最高价=" << info->QHisHighPrice
+		<< ", 历史最低价=" << info->QHisLowPrice
+		<< ", 内盘量=" << info->QInsideQty
+		<< ", 外盘量=" << info->QOutsideQty
+		<< ", 市盈率=" << info->QPERatio
+		<< ", 持仓量=" << info->QPositionQty
+		<< ", 持仓走势=" << info->QPositionTrend
+		<< ", 总市值=" << info->QTotalValue
+		<< ", 流通市值=" << info->QNegotiableValue
+		<< ", 换手率=" << info->QTurnoverRate;
+	for (int i = 0; i < 20; i++) {
+		if (i % 5 == 0)
+			log << std::endl;
+		log << ", 买价" << i + 1 << "=" << info->QBidPrice[i];
+		log << ", 买量" << i + 1 << "=" << info->QBidQty[i];
+	}
+	for (int i = 0; i < 20; i++) {
+		if (i % 5 == 0)
+			log << std::endl;
+		log << ", 卖价" << i + 1 << "=" << info->QAskPrice[i];
+		log << ", 卖量" << i + 1 << "=" << info->QAskQty[i];
+	}
+	//	<< ", 合约代码2=" << info->Contract.ContractNo2
+	//	<< ", 执行价1=" << info->Contract.StrikePrice1
+	//	<< ", 执行价2=" << info->Contract.StrikePrice2
+	//	<< ", 币种编号=" << info->CurrencyNo
+	//	<< ", UnderlyContract.CallOrPutFlag1=" << info->UnderlyContract.CallOrPutFlag1
+	//	<< ", UnderlyContract.CallOrPutFlag2=" << info->UnderlyContract.CallOrPutFlag2
+	//	<< ", UnderlyContract.Commodity.CommodityNo=" << info->UnderlyContract.Commodity.CommodityNo
+	//	<< ", UnderlyContract.Commodity.CommodityType=" << info->UnderlyContract.Commodity.CommodityType
+	//	<< ", UnderlyContract.Commodity.ExchangeNo=" << info->UnderlyContract.Commodity.ExchangeNo
+	//	<< ", UnderlyContract.ContractNo1=" << info->UnderlyContract.ContractNo1
+	//	<< ", UnderlyContract.ContractNo2=" << info->UnderlyContract.ContractNo2
+	//	<< ", UnderlyContract.StrikePrice1=" << info->UnderlyContract.StrikePrice1
+	//	<< ", UnderlyContract.StrikePrice2=" << info->UnderlyContract.StrikePrice2
+	//	<< ", 看涨看跌标示1=" << info->Contract.CallOrPutFlag1
+	//	<< ", 看涨看跌标示2=" << info->Contract.CallOrPutFlag2
+	//	<< ", 品种类型=" << info->Contract.Commodity.CommodityType
+	//	<< ", 交易所编码=" << info->Contract.Commodity.ExchangeNo
+	//	<< ", 交易状态=" << info->TradingState 
 	LOGMSG(logger, &log);
 }

@@ -137,7 +137,7 @@ int main()
 	// Create TradeAPI Instance
 	ITapTrade::TapAPIApplicationInfo iappInfo = { 0 };
 	arch_strcpy(iappInfo.AuthCode, DEFAULT_AUTHCODE, sizeof(ITapTrade::TAPIAUTHCODE));
-	arch_strcpy(iappInfo.KeyOperationLogPath, datacore->tradeLogpath.c_str(), sizeof(TAPISTR_300));
+	arch_strcpy(iappInfo.KeyOperationLogPath, datacore->tradeLogpath.c_str(), sizeof(ITapTrade::TAPISTR_300));
 	ITapTradeAPI *tradeApi = CreateITapTradeAPI(&iappInfo, iResult);
 	if (!tradeApi) {
 		log << "创建 trade API 实例失败，ErrorCode=" << iResult;
@@ -170,11 +170,9 @@ int main()
 	}
 	// Do Login
 	ITapTrade::TapAPITradeLoginAuth iloginAuth = { 0 };
-
-
-	arch_strcpy(iloginAuth.UserNo, DEFAULT_TRADE_USERNAME, sizeof(TAPISTR_20));
-	arch_strcpy(iloginAuth.Password, DEFAULT_TRADE_PASSWORD, sizeof(TAPISTR_20));
-	iloginAuth.ISModifyPassword = APIYNFLAG_NO;
+	arch_strcpy(iloginAuth.UserNo, DEFAULT_TRADE_USERNAME, sizeof(ITapTrade::TAPISTR_20));
+	arch_strcpy(iloginAuth.Password, DEFAULT_TRADE_PASSWORD, sizeof(ITapTrade::TAPISTR_20));
+	iloginAuth.ISModifyPassword = ITapTrade::APIYNFLAG_NO;
 	iResult = tradeApi->Login(&iloginAuth);
 	if (iResult) {
 		log << "登录 trade 认证失败，ErrorCode=" << iResult;
@@ -188,9 +186,6 @@ int main()
 
 
 
-	while (true) {
-		;
-	}
-
+	while (true) { ; }
 	return 0;
 }
