@@ -127,12 +127,14 @@
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="quotespi.cpp" />
+    <ClCompile Include="tradespi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arch.h" />
     <ClInclude Include="datacore.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="quotespi.h" />
+    <ClInclude Include="tradespi.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

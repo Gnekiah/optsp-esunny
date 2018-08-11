@@ -27,6 +27,9 @@
     <ClCompile Include="quotespi.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="tradespi.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arch.h">
@@ -39,6 +42,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="quotespi.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tradespi.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
