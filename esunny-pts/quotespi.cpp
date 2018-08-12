@@ -4,9 +4,10 @@
 
 using std::stringstream;
 
-QuoteSpi::QuoteSpi(Logger *logger)
+QuoteSpi::QuoteSpi(Logger *logger, Datacore *datacore)
 {
 	this->logger = logger;
+	this->datacore = datacore;
 	ready = false;
 }
 
@@ -171,6 +172,9 @@ void TAP_CDECL QuoteSpi::OnRspSubscribeQuote(TAPIUINT32 sessionID, TAPIINT32 err
 {
 	stringstream log;
 	if (!errorCode) {
+		TapAPIQuoteWhole tick;
+		memcpy(&tick, info, sizeof(TapAPIQuoteWhole));
+		datacore->tickBuffer->push(tick);
 		log << "深度行情"
 			<< ", 品种编号=" << info->Contract.Commodity.CommodityNo
 			<< ", 合约代码=" << info->Contract.ContractNo1
@@ -294,6 +298,9 @@ void TAP_CDECL QuoteSpi::OnRspUnSubscribeQuote(TAPIUINT32 sessionID, TAPIINT32 e
 void TAP_CDECL QuoteSpi::OnRtnQuote(const TapAPIQuoteWhole *info)
 {
 	stringstream log;
+	TapAPIQuoteWhole tick;
+	memcpy(&tick, info, sizeof(TapAPIQuoteWhole));
+	datacore->tickBuffer->push(tick);
 	log << "深度行情"
 		<< ", 品种编号=" << info->Contract.Commodity.CommodityNo
 		<< ", 合约代码=" << info->Contract.ContractNo1

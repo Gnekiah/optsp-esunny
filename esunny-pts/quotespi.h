@@ -12,12 +12,13 @@ class QuoteSpi : public ITapQuoteAPINotify
 {
 private:
 	Logger *logger = NULL;
+	Datacore *datacore = NULL;
 	
 public:
 	atomic_bool ready;
 
 public:
-	QuoteSpi(Logger *logger);
+	QuoteSpi(Logger *logger, Datacore *datacore);
 
 	///系统登录过程回调。
 	void TAP_CDECL OnRspLogin(TAPIINT32 errorCode, const TapAPIQuotLoginRspInfo *info);
