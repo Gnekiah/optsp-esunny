@@ -5,6 +5,7 @@
 #include "datacore.h"
 #include "quotespi.h"
 #include "tradespi.h"
+#include "st_sola.h"
 
 using std::stringstream;
 using ITapTrade::ITapTradeAPI;
@@ -58,7 +59,7 @@ int main()
 		return iResult;
 	}
 	// Create QuoteSPI Instance
-	QuoteSpi *quoteSpi = new QuoteSpi(logger);
+	QuoteSpi *quoteSpi = new QuoteSpi(logger, datacore);
 	quoteApi->SetAPINotify(quoteSpi);
 	// Set Quote Data Path
 	iResult = SetTapQuoteAPIDataPath(datacore->quotepath.c_str());
@@ -183,9 +184,9 @@ int main()
 	while (!tradeSpi->ready)
 		arch_sleep(1);
 
+	/* Create and Init ST_Sola (Strategy) */
+	ST_Sola *stsola = new ST_Sola(logger, datacore);
+	stsola->Join();
 
-
-
-	while (true) { ; }
 	return 0;
 }

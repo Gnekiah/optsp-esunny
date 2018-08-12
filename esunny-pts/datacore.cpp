@@ -60,6 +60,7 @@ Datacore::Datacore(string filename)
 	if (!boost::filesystem::exists(tradeLogpath) || !boost::filesystem::is_directory(tradeLogpath)) 
 		boost::filesystem::create_directories(tradeLogpath);
 
+	tickBuffer = new boost::lockfree::queue<TapAPIQuoteWhole>(128);
 }
 
 

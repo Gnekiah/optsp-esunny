@@ -5,9 +5,11 @@
 #include <mutex>
 #include <fstream>
 #include <sstream>
+#include <queue>
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
+#include <boost/lockfree/queue.hpp>
 
 #include "arch.h"
 
@@ -44,8 +46,13 @@ public:
 	char tradeLogLevel;
 
 public:
-	int nMdInstrument;
-	char* mdInstrumentIDs[MAX_NR_INSTRUMENT];
+	boost::lockfree::queue<TapAPIQuoteWhole> *tickBuffer = NULL;
+	//std::queue<TapAPIQuoteWhole> *tickBuffer = NULL;
+
+
+public:
+	//int nMdInstrument;
+	//char* mdInstrumentIDs[MAX_NR_INSTRUMENT];
 
 private:
 	/* 过滤' '和'#'，'blank'表示是否要过滤空格，默认为true，表示过滤空格 */

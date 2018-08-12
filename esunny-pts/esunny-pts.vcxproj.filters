@@ -30,6 +30,9 @@
     <ClCompile Include="tradespi.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="st_sola.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arch.h">
@@ -45,6 +48,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="tradespi.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="st_sola.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
