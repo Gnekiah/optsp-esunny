@@ -19,7 +19,6 @@ typedef struct KLine {
 	TAPIQPRICE LowPrice;
 	TAPIQPRICE ClosingPrice;
 	TAPIQPRICE MA5;
-	TAPIQVOLUME PositionQty;
 	int Covered;
 } KLine;
 
@@ -28,11 +27,15 @@ class ST_Sola {
 private:
 	Logger *logger = NULL;
 	Datacore *datacore = NULL;
+	
+private:
+	KLine kline;
 	circular_buffer<KLine> *klines = NULL;
 	boost::lockfree::queue<TapAPIQuoteWhole> *tickBuffer = NULL;
 
 private:
 	void Run();
+	void MergeKLine();
 	void UpdateKLine(TapAPIQuoteWhole *tick);
 
 public:
