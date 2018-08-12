@@ -1,16 +1,30 @@
 #include "st_sola.h"
 
-ST_Sola::ST_Sola(Logger *logger)
+ST_Sola::ST_Sola(Logger *logger, Datacore *datacore)
 {
 	this->logger = logger;
-	Klines = new circular_buffer<KLine>(65536);
+	this->datacore = datacore;
+	this->tickBuffer = datacore->tickBuffer;
+	klines = new circular_buffer<KLine>(65536);
+}
+
+
+void ST_Sola::UpdateKLine(TapAPIQuoteWhole *tick)
+{
+	if ()
+	
 }
 
 
 void ST_Sola::Run()
 {
+	TapAPIQuoteWhole tick;
 	while (true) {
-		arch_sleep(0.1);
+		arch_sleep(0.01);
+		if (!(tickBuffer->empty())) {
+			tickBuffer->pop(tick);
+			UpdateKLine(&tick);
+		}
 	}
 }
 
