@@ -7,7 +7,7 @@
 
 
 /* Define etc. */
-#define MAX_NR_INSTRUMENT	512
+//#define MAX_NR_INSTRUMENT	512
 
 
 /* Import QuoteAPI & TradeAPI libs */
@@ -27,7 +27,7 @@
 #define arch_strcpy(dst, src, n)    strncpy(dst, src, n)
 #define arch_sprintf(buf, n, fmt, v)	snprintf(buf, n, fmt, v)
 #include <unistd.h>
-#define arch_sleep(n)	sleep(n)
+#define arch_sleep(n)	sleep(((n) < 1 ? 1 : (int) (n)))
 
 #elif defined(_WIN64)
 #include "quoteapi/win64/TapAPICommDef.h"
@@ -47,7 +47,7 @@
 #define arch_strcpy(dst, src, n)    strcpy_s(dst, n, src)
 #define arch_sprintf(buf, n, fmt, v)	sprintf_s(buf, n, fmt, v)
 #include <Windows.h>
-#define arch_sleep(n)	Sleep(1000 * n)
+#define arch_sleep(n)	Sleep((int) (1000 * (n)))
 
 #elif defined(_WIN32)
 #include "quoteapi/win32/TapAPICommDef.h"
@@ -67,7 +67,7 @@
 #define arch_strcpy(dst, src, n)    strcpy_s(dst, n, src)
 #define arch_sprintf(buf, n, fmt, v)	sprintf_s(buf, n, fmt, v)
 #include <Windows.h>
-#define arch_sleep(n)	Sleep(1000 * n)
+#define arch_sleep(n)	Sleep((int) (1000 * (n)))
 
 #endif
 
