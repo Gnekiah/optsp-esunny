@@ -301,6 +301,7 @@ void TAP_CDECL QuoteSpi::OnRtnQuote(const TapAPIQuoteWhole *info)
 	TapAPIQuoteWhole tick;
 	memcpy(&tick, info, sizeof(TapAPIQuoteWhole));
 	datacore->tickBuffer->push(tick);
+	return;
 	log << "深度行情"
 		<< ", 品种编号=" << info->Contract.Commodity.CommodityNo
 		<< ", 合约代码=" << info->Contract.ContractNo1
