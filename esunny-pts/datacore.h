@@ -46,6 +46,13 @@ public:
 	char tradeLogLevel;
 
 public:
+	ITapTrade::TAPISTR_20 userNo;
+	ITapTrade::TAPISTR_20 password;
+	ITapTrade::TAPISTR_10 exchangeNo;
+	ITapTrade::TAPISTR_10 commodityNo;
+	ITapTrade::TAPISTR_10 contractNo;
+
+public:
 	boost::lockfree::queue<TapAPIQuoteWhole> *tickBuffer = NULL;
 	//std::queue<TapAPIQuoteWhole> *tickBuffer = NULL;
 

@@ -6,6 +6,7 @@
 #include "quotespi.h"
 #include "tradespi.h"
 #include "st_sola.h"
+#include "trader.h"
 
 using std::stringstream;
 using ITapTrade::ITapTradeAPI;
@@ -139,7 +140,7 @@ int main()
 	ITapTrade::TapAPIApplicationInfo iappInfo = { 0 };
 	arch_strcpy(iappInfo.AuthCode, DEFAULT_AUTHCODE, sizeof(ITapTrade::TAPIAUTHCODE));
 	arch_strcpy(iappInfo.KeyOperationLogPath, datacore->tradeLogpath.c_str(), sizeof(ITapTrade::TAPISTR_300));
-	ITapTradeAPI *tradeApi = CreateITapTradeAPI(&iappInfo, iResult);
+	ITapTrade::ITapTradeAPI *tradeApi = CreateITapTradeAPI(&iappInfo, iResult);
 	if (!tradeApi) {
 		log << "´´½¨ trade API ÊµÀýÊ§°Ü£¬ErrorCode=" << iResult;
 		LOGERR(logger, &log);
@@ -184,8 +185,11 @@ int main()
 	while (!tradeSpi->ready)
 		arch_sleep(1);
 
+	/* Create and Init Trader */
+	Trader *trader = new Trader(tradeApi, logger, datacore);
+
 	/* Create and Init ST_Sola (Strategy) */
-	ST_Sola *stsola = new ST_Sola(logger, datacore);
+	ST_Sola *stsola = new ST_Sola(trader, logger, datacore);
 	stsola->Join();
 
 	return 0;
