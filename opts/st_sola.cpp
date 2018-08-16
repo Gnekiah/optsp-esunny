@@ -19,8 +19,8 @@ void ST_Sola::MergeKLine()
 	if (_size < 2)
 		return;
 	if (_size == 2) {
-		log << "KLine Size=" << _size;
-		LOGMSG(logger, &log);
+		//log << "KLine Size=" << _size;
+		//LOGMSG(logger, &log);
 		circular_buffer<KLine>::iterator it = klines->begin();
 		KLine k1 = *it;
 		it++;
@@ -48,8 +48,8 @@ void ST_Sola::MergeKLine()
 		klines->pop_front();
 		klines->pop_front();
 		klines->push_front(k1);
-		log << "处理一个包含关系，size = 2";
-		LOGMSG(logger, &log);
+		//log << "处理一个包含关系，size = 2";
+		//LOGMSG(logger, &log);
 		return;
 	}
 	
@@ -103,8 +103,8 @@ void ST_Sola::MergeKLine()
 	k1.MA5 = _sum / _cnt;
 
 	klines->push_front(k1);
-	log << "处理一个包含关系，Covered=" << k1.Covered;
-	LOGMSG(logger, &log);
+	//log << "处理一个包含关系，Covered=" << k1.Covered;
+	//LOGMSG(logger, &log);
 
 }
 
@@ -151,8 +151,8 @@ void ST_Sola::UpdateKLine(TapAPIQuoteWhole *tick)
 	}
 	// if secs1 - secs2 >= 15s, then the current tick out of a KLine series
 	if (strcmp(kline.DateTimeStamp, "0000-00-00 00:00:00.000") && (secs1 - secs2) >= 15) {
-		log << "将当前 KLine 插入到 KLines 中，secs1=" << secs1 << "，secs2=" << secs2;
-		LOGMSG(logger, &log);
+		//log << "将当前 KLine 插入到 KLines 中，secs1=" << secs1 << "，secs2=" << secs2;
+		//LOGMSG(logger, &log);
 		// Calc MA5
 		int _cnt = 0;
 		TAPIQPRICE _sum = 0;
@@ -171,16 +171,16 @@ void ST_Sola::UpdateKLine(TapAPIQuoteWhole *tick)
 		/* DO TEST */
 		it = klines->begin();
 		for (int i = 0; i < klines->size(); i++, it++) {
-			log << (*it).Covered << ", " << (*it).DateTimeStamp << ", Opening=" << (*it).OpeningPrice << ", High=" << (*it).HighPrice
-				<< ", Low=" << (*it).LowPrice << ", Closing" << (*it).ClosingPrice << ", MA5=" << (*it).MA5;
-			LOGMSG(logger, &log);
+			//log << (*it).Covered << ", " << (*it).DateTimeStamp << ", Opening=" << (*it).OpeningPrice << ", High=" << (*it).HighPrice
+			//	<< ", Low=" << (*it).LowPrice << ", Closing" << (*it).ClosingPrice << ", MA5=" << (*it).MA5;
+			//LOGMSG(logger, &log);
 		}
 	}
 	
 	// Init a new KLine
 	if (!strcmp(kline.DateTimeStamp, "0000-00-00 00:00:00.000")) {
-		log << "初始化一个新的 KLine";
-		LOGMSG(logger, &log);
+		//log << "初始化一个新的 KLine";
+		//LOGMSG(logger, &log);
 		arch_strcpy(kline.DateTimeStamp, tick->DateTimeStamp, sizeof(TAPIDTSTAMP));
 		kline.DateTimeStamp[20] = '0';
 		kline.DateTimeStamp[21] = '0';

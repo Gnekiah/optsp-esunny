@@ -1,5 +1,7 @@
-#ifndef ESUNNY_QUOTESPI_H_
-#define ESUNNY_QUOTESPI_H_
+#ifndef OPTS_ESN_QUOTE_V9_OUTER_H_
+#define OPTS_ESN_QUOTE_V9_OUTER_H_
+#define _ESNAPI_V9_
+
 
 #include <mutex>
 
@@ -11,9 +13,9 @@ using std::atomic_bool;
 class QuoteSpi : public ITapQuoteAPINotify
 {
 private:
-	Logger *logger = NULL;
+	Logger * logger = NULL;
 	Datacore *datacore = NULL;
-	
+
 public:
 	atomic_bool ready;
 
@@ -36,7 +38,8 @@ public:
 	void TAP_CDECL OnRspUnSubscribeQuote(TAPIUINT32 sessionID, TAPIINT32 errorCode, TAPIYNFLAG isLast, const TapAPIContract *info);
 	///返回订阅行情的变化内容。
 	void TAP_CDECL OnRtnQuote(const TapAPIQuoteWhole *info);
-	
+
 };
 
-#endif // ESUNNY_QUOTESPI_H_
+
+#endif // OPTS_ESN_QUOTE_V9_OUTER_H_

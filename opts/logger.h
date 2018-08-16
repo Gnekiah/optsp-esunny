@@ -1,5 +1,5 @@
-#ifndef ESUNNY_LOGGER_H_
-#define ESUNNY_LOGGER_H_
+#ifndef OPTS_LOGGER_H_
+#define OPTS_LOGGER_H_
 
 #include <mutex>
 #include <sstream>
@@ -29,4 +29,4 @@ public:
 	void FlushWar(stringstream *strStream, const char* _FUNC_);
 	void FlushMsg(stringstream *strStream, const char* _FUNC_);
 };
-#endif // ESUNNY_LOGGER_H_
+#endif // OPTS_LOGGER_H_

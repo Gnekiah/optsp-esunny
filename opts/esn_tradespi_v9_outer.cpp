@@ -1,4 +1,4 @@
-#include "tradespi.h"
+#include "esn_trade_v9_outer.h"
 
 TradeSpi::TradeSpi(Logger *logger)
 {
@@ -570,7 +570,7 @@ void TAP_CDECL TradeSpi::OnRspQryAccountMarginRent(ITapTrade::TAPIUINT32 session
 */
 void TAP_CDECL TradeSpi::OnRspHKMarketOrderInsert(ITapTrade::TAPIUINT32 sessionID, ITapTrade::TAPIINT32 errorCode, const ITapTrade::TapAPIOrderMarketInsertRsp *info)
 {
-	
+
 }
 
 

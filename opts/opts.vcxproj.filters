@@ -24,13 +24,22 @@
     <ClCompile Include="datacore.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="quotespi.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="tradespi.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="st_sola.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="arch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="esn_quotespi_v3.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="esn_quotespi_v9_outer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="esn_tradespi_v3.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="esn_tradespi_v9_outer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,13 +53,28 @@
     <ClInclude Include="datacore.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="quotespi.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="tradespi.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="st_sola.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="trader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="esn_quotespi_v3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="esn_quotespi_v9_outer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="esn_tradespi_v3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="esn_tradespi_v9_outer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="datatype.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="datastruct.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

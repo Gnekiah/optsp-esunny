@@ -1,5 +1,6 @@
-#ifndef ESUNNY_TRADESPI_H_
-#define ESUNNY_TRADESPI_H_
+#ifndef OPTS_ESN_TRADE_V9_OUTER_H_
+#define OPTS_ESN_TRADE_V9_OUTER_H_
+#define _ESNAPI_V9_
 
 #include <mutex>
 
@@ -11,7 +12,7 @@ using std::atomic_bool;
 class TradeSpi : public ITapTrade::ITapTradeAPINotify
 {
 private:
-	Logger *logger = NULL;
+	Logger * logger = NULL;
 
 public:
 	atomic_bool ready;
@@ -116,4 +117,5 @@ public:
 
 };
 
-#endif // ESUNNY_TRADESPI_H_
+
+#endif // OPTS_ESN_TRADE_V9_OUTER_H_

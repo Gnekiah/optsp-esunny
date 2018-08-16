@@ -21,35 +21,40 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{F1895708-D843-454F-AAB7-306446AE8136}</ProjectGuid>
-    <RootNamespace>esunnypts</RootNamespace>
+    <RootNamespace>opts</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <ProjectName>opts</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -123,20 +128,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="arch.cpp" />
     <ClCompile Include="datacore.cpp" />
+    <ClCompile Include="esn_quotespi_v3.cpp" />
+    <ClCompile Include="esn_quotespi_v9_outer.cpp" />
+    <ClCompile Include="esn_tradespi_v3.cpp" />
+    <ClCompile Include="esn_tradespi_v9_outer.cpp" />
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="quotespi.cpp" />
     <ClCompile Include="st_sola.cpp" />
-    <ClCompile Include="tradespi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arch.h" />
     <ClInclude Include="datacore.h" />
+    <ClInclude Include="datastruct.h" />
+    <ClInclude Include="datatype.h" />
+    <ClInclude Include="esn_quotespi_v3.h" />
+    <ClInclude Include="esn_quotespi_v9_outer.h" />
+    <ClInclude Include="esn_tradespi_v3.h" />
+    <ClInclude Include="esn_tradespi_v9_outer.h" />
     <ClInclude Include="logger.h" />
-    <ClInclude Include="quotespi.h" />
     <ClInclude Include="st_sola.h" />
-    <ClInclude Include="tradespi.h" />
+    <ClInclude Include="trader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

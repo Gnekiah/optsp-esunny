@@ -1,4 +1,4 @@
-#include "quotespi.h"
+#include "esn_quote_v9_outer.h"
 
 #include <sstream>
 
@@ -21,7 +21,7 @@ QuoteSpi::QuoteSpi(Logger *logger, Datacore *datacore)
 * @attention	该回调返回成功，说明用户登录成功。但是不代表API准备完毕。需要等到OnAPIReady才能进行查询与订阅请求。
 * @ingroup G_Q_Login
 */
-void TAP_CDECL QuoteSpi::OnRspLogin(TAPIINT32 errorCode, const TapAPIQuotLoginRspInfo *info) 
+void TAP_CDECL QuoteSpi::OnRspLogin(TAPIINT32 errorCode, const TapAPIQuotLoginRspInfo *info)
 {
 	stringstream log;
 	if (!errorCode) {
@@ -228,7 +228,7 @@ void TAP_CDECL QuoteSpi::OnRspSubscribeQuote(TAPIUINT32 sessionID, TAPIINT32 err
 				log << std::endl;
 			log << ", 卖价" << i + 1 << "=" << info->QAskPrice[i];
 			log << ", 卖量" << i + 1 << "=" << info->QAskQty[i];
-		}			
+		}
 		//	<< ", 合约代码2=" << info->Contract.ContractNo2
 		//	<< ", 执行价1=" << info->Contract.StrikePrice1
 		//	<< ", 执行价2=" << info->Contract.StrikePrice2
